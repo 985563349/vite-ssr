@@ -1,14 +1,20 @@
 {
   "name": "mini-nextjs",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node server",
     "build": "vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "express": "^5.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
     "vite": "^6.0.1"
   }
 }
