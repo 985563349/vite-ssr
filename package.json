@@ -13,8 +13,10 @@
   "dependencies": {
     "compression": "^1.7.5",
     "express": "^5.0.1",
+    "mini-nextjs": "link:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^7.0.1",
     "sirv": "^3.0.0"
   },
   "devDependencies": {
