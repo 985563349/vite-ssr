@@ -5,16 +5,21 @@
   "type": "module",
   "scripts": {
     "dev": "node server",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.jsx --outDir dist/server",
+    "preview": "cross-env NODE_ENV=production node server"
   },
   "dependencies": {
+    "compression": "^1.7.5",
     "express": "^5.0.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "sirv": "^3.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "cross-env": "^7.0.3",
     "vite": "^6.0.1"
   }
 }

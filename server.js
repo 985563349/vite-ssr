@@ -6,6 +6,9 @@ const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 5173;
 const base = process.env.BASE || '/';
 
+// cached production assets
+const templateHtml = isProduction ? await fs.readFile('./dist/client/index.html', 'utf-8') : '';
+
 // create http server
 const app = express();
 
@@ -22,7 +25,11 @@ if (!isProduction) {
 
   app.use(vite.middlewares);
 } else {
-  // TODO:
+  const compression = (await import('compression')).default;
+  const sirv = (await import('sirv')).default;
+
+  app.use(compression());
+  app.use(base, sirv('./dist/client', { extensions: [] }));
 }
 
 app.use('*all', async (req, res) => {
@@ -38,7 +45,8 @@ app.use('*all', async (req, res) => {
       template = await vite.transformIndexHtml(url, template);
       render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render;
     } else {
-      // TODO:
+      template = templateHtml;
+      render = (await import('./dist/server/entry-server.js')).render;
     }
 
     const rendered = await render(url);
