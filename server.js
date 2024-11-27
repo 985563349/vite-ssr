@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import express from 'express';
+import { uneval } from 'devalue';
 
 // constants
 const isProduction = process.env.NODE_ENV === 'production';
@@ -49,10 +50,19 @@ app.use('*all', async (req, res) => {
       render = (await import('./dist/server/entry-server.js')).render;
     }
 
-    const rendered = await render(url);
+    const ctx = { serverSideProps: null };
+    const rendered = await render({ ctx, url });
+
     const html = template
-      .replace(`<!--app-head-->`, rendered.head ?? '')
-      .replace(`<!--app-html-->`, rendered.html ?? '');
+      .replace('<!--app-head-->', rendered.head ?? '')
+      .replace('<!--app-html-->', rendered.html ?? '')
+      // The SSR context data is also passed to the template, inlined for hydration
+      .replace(
+        '<!--app-data-->',
+        ctx.serverSideProps
+          ? `<script>window.__SSR_DATA__ = ${uneval({ url, props: ctx.serverSideProps })}</script>`
+          : ''
+      );
 
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
   } catch (e) {

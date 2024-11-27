@@ -1,17 +1,19 @@
-import { StrictMode } from 'react';
+import { Suspense } from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
 
-import Router from './router';
+import routes from './routes';
+import { createRouter } from './next';
+import { matchRoutes } from 'react-router-dom';
 
-export function render(url) {
-  const html = renderToString(
-    <StrictMode>
-      <StaticRouter location={url}>
-        <Router />
-      </StaticRouter>
-    </StrictMode>
-  );
+export async function render({ ctx, url }) {
+  const [router] = matchRoutes(routes, url);
+  const { getServerSideProps } = router.route;
+
+  if (getServerSideProps) {
+    ctx.serverSideProps = await getServerSideProps({ params: router.params });
+  }
+
+  const html = renderToString(<Suspense>{createRouter({ ctx, routes, url })}</Suspense>);
 
   return { html };
 }

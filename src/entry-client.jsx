@@ -1,14 +1,7 @@
-import { StrictMode } from 'react';
+import { Suspense } from 'react';
 import { hydrateRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 
-import Router from './router';
+import routes from './routes';
+import { createRouter } from './next';
 
-hydrateRoot(
-  document.getElementById('app'),
-  <StrictMode>
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
-  </StrictMode>
-);
+hydrateRoot(document.getElementById('app'), <Suspense>{createRouter({ routes })}</Suspense>);
