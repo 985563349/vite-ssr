@@ -1,5 +1,5 @@
 {
-  "name": "mini-nextjs",
+  "name": "vite-ssr",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -14,7 +14,6 @@
     "compression": "^1.7.5",
     "devalue": "^5.1.1",
     "express": "^5.0.1",
-    "mini-nextjs": "link:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.1",

@@ -15,7 +15,7 @@ export default function Index({ hobby }) {
       <h1>Hello Vite SSR</h1>
       <button onClick={() => setCount(() => count + 1)}>count is {count}</button>
       <p>
-        <Link to="/posts/123">Go to another page</Link>
+        <Link to="/other">Go to another page</Link>
       </p>
       <p>Hobby</p>
       <ul>

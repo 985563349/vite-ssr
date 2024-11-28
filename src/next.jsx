@@ -12,8 +12,8 @@ export function getPageRoutes(importMap) {
           .slice(10, -4)
           // Replace [id] with :id
           .replace(/\[(\w+)\]/, (_, m) => `:${m}`)
-          // Replace '/index' with '/'
-          .replace(/\/index$/, '/'),
+          // Replace '/page' with '/'
+          .replace(/\/page$/, '/'),
         // The React component (default export)
         component: importMap[path].default,
         // The getServerSideProps individual export
