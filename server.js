@@ -66,7 +66,7 @@ app.use('*all', async (req, res) => {
 
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
   } catch (e) {
-    vite.ssrFixStacktrace(e);
+    vite?.ssrFixStacktrace(e);
     console.log(e.stack);
     res.status(500).end(e.stack);
   }

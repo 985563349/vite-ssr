@@ -1,4 +1,4 @@
-import { BrowserRouter, matchPath, Route, Routes, StaticRouter, useLocation, useParams } from 'react-router-dom';
+import { BrowserRouter, matchPath, Route, Routes, StaticRouter, useParams } from 'react-router-dom';
 
 export function getPageRoutes(importMap) {
   return (

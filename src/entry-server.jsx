@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { renderToString } from 'react-dom/server';
+import { matchRoutes } from 'react-router-dom';
 
 import routes from './routes';
 import { createRouter } from './next';
-import { matchRoutes } from 'react-router-dom';
 
 export async function render({ ctx, url }) {
   const [router] = matchRoutes(routes, url);
